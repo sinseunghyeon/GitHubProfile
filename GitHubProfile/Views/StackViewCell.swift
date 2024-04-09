@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import Kingfisher
 
 class StackViewCell: UICollectionViewCell {
     static let cellIdentifier = "StackViewCell"
@@ -24,9 +25,9 @@ class StackViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupStackView()
         setupTrailingStackView()
-        setupImageView()
+        setupImageView(username: "sinseunghyeon")
         fetchGitHubUser(username: "sinseunghyeon")
-//        setupLabel()
+        setupLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +43,7 @@ class StackViewCell: UICollectionViewCell {
         stackView.addArrangedSubview(trailingStackView)
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -59,6 +61,7 @@ class StackViewCell: UICollectionViewCell {
         trailingStackView.addArrangedSubview(followersLabel)
         trailingStackView.addArrangedSubview(followingLabel)
         trailingStackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             trailingStackView.topAnchor.constraint(equalTo: self.topAnchor),
             trailingStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -66,8 +69,11 @@ class StackViewCell: UICollectionViewCell {
             trailingStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
     }
     
-    private func setupImageView() {
+    private func setupImageView(username: String) {
         imageView.contentMode = .scaleAspectFit // 이미지 비율 유지
+        if let url = URL(string: "https://github.com/\(username).png") {
+            imageView.kf.setImage(with: url)
+        }
         imageView.image = UIImage(named: "none") // 이미지 이름 설정
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -77,12 +83,12 @@ class StackViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)])
     }
     
-    func reloadLabels() {
-        idLabel.reloadInputViews()
-        nameLabel.reloadInputViews()
-        regionLabel.reloadInputViews()
-        followersLabel.reloadInputViews()
-        followingLabel.reloadInputViews()
+    func setupLabel() {
+        idLabel.text = "ID : "
+        nameLabel.text = "Name : "
+        regionLabel.text = "Region : "
+        followersLabel.text = "Followers : "
+        followingLabel.text = "Following : "
     }
     
     func fetchGitHubUser(username: String) {
@@ -91,11 +97,11 @@ class StackViewCell: UICollectionViewCell {
         AF.request(url).validate().responseDecodable(of: Profile.self) { response in
             if let value = response.value {
                 print("GitHub User: \(value)")
-                self.idLabel.text = value.getLogin()
-                self.nameLabel.text = value.getName()
-                self.regionLabel.text = value.getRegion()
-                self.followersLabel.text = value.getFollowers()
-                self.followingLabel.text = value.getFollowing()
+                self.idLabel.text! += value.getLogin()
+                self.nameLabel.text! += value.getName()
+                self.regionLabel.text! += value.getRegion()
+                self.followersLabel.text! += value.getFollowers()
+                self.followingLabel.text! += value.getFollowing()
                 
             }else {
                 print("Error: ")

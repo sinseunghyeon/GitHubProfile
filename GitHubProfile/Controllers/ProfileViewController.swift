@@ -52,13 +52,13 @@ class ProfileViewController: UICollectionViewController {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StackViewCell.cellIdentifier, for: indexPath) as? StackViewCell else {
                 return UICollectionViewCell()
             }
-            cell.backgroundColor = .red
+            cell.backgroundColor = .systemGray2
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TableViewCell.cellIdentifier, for: indexPath) as? TableViewCell else {
                 return UICollectionViewCell()
             }
-            cell.backgroundColor = .blue
+            cell.backgroundColor = .systemGray
             return cell
         }
     }
@@ -71,11 +71,10 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         switch indexPath.section {
         case 0:
             // StackView 섹션의 크기
-            return CGSize(width: collectionView.frame.width, height: 100) // 예시 크기
+            return CGSize(width: collectionView.frame.width, height: 100)
         default:
             // TableView 섹션의 크기
-            print("cnffur")
-            return CGSize(width: collectionView.frame.width, height: 400) // 예시 크기
+            return CGSize(width: collectionView.frame.width, height: 400)
         }
     }
 }

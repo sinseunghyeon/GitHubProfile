@@ -20,8 +20,11 @@
 		FF932E0B2BBEA76000D82DCA /* GitHubProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF932E0A2BBEA76000D82DCA /* GitHubProfileUITests.swift */; };
 		FF932E0D2BBEA76000D82DCA /* GitHubProfileUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF932E0C2BBEA76000D82DCA /* GitHubProfileUITestsLaunchTests.swift */; };
 		FFD017EF2BC43AC600F79E3A /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD017EE2BC43AC600F79E3A /* Profile.swift */; };
-		FFD017F42BC43CAA00F79E3A /* ProfileViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD017F32BC43CAA00F79E3A /* ProfileViewCell.xib */; };
-		FFD017F52BC43CAA00F79E3A /* ProfileViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD017F22BC43CAA00F79E3A /* ProfileViewCellController.swift */; };
+		FFD017F82BC56FC500F79E3A /* StackViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD017F72BC56FC500F79E3A /* StackViewCell.xib */; };
+		FFD017F92BC56FC500F79E3A /* StackViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD017F62BC56FC500F79E3A /* StackViewCell.swift */; };
+		FFD017FC2BC5703D00F79E3A /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD017FB2BC5703D00F79E3A /* TableViewCell.xib */; };
+		FFD017FD2BC5703D00F79E3A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD017FA2BC5703D00F79E3A /* TableViewCell.swift */; };
+		FFD017FF2BC5A50000F79E3A /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD017FE2BC5A50000F79E3A /* Repository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +68,11 @@
 		FF932E0A2BBEA76000D82DCA /* GitHubProfileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProfileUITests.swift; sourceTree = "<group>"; };
 		FF932E0C2BBEA76000D82DCA /* GitHubProfileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProfileUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FFD017EE2BC43AC600F79E3A /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		FFD017F22BC43CAA00F79E3A /* ProfileViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCellController.swift; sourceTree = "<group>"; };
-		FFD017F32BC43CAA00F79E3A /* ProfileViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewCell.xib; sourceTree = "<group>"; };
+		FFD017F62BC56FC500F79E3A /* StackViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewCell.swift; sourceTree = "<group>"; };
+		FFD017F72BC56FC500F79E3A /* StackViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StackViewCell.xib; sourceTree = "<group>"; };
+		FFD017FA2BC5703D00F79E3A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		FFD017FB2BC5703D00F79E3A /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		FFD017FE2BC5A50000F79E3A /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				FFD017EE2BC43AC600F79E3A /* Profile.swift */,
+				FFD017FE2BC5A50000F79E3A /* Repository.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,7 +193,10 @@
 			children = (
 				FF932DF42BBEA76000D82DCA /* LaunchScreen.storyboard */,
 				FF932DEF2BBEA75F00D82DCA /* Main.storyboard */,
-				FFD017F32BC43CAA00F79E3A /* ProfileViewCell.xib */,
+				FFD017F62BC56FC500F79E3A /* StackViewCell.swift */,
+				FFD017F72BC56FC500F79E3A /* StackViewCell.xib */,
+				FFD017FA2BC5703D00F79E3A /* TableViewCell.swift */,
+				FFD017FB2BC5703D00F79E3A /* TableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				FF932DED2BBEA75F00D82DCA /* ProfileViewController.swift */,
-				FFD017F22BC43CAA00F79E3A /* ProfileViewCellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -310,8 +319,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF932DF32BBEA76000D82DCA /* Assets.xcassets in Resources */,
+				FFD017FC2BC5703D00F79E3A /* TableViewCell.xib in Resources */,
+				FFD017F82BC56FC500F79E3A /* StackViewCell.xib in Resources */,
 				FF932DF62BBEA76000D82DCA /* Base in Resources */,
-				FFD017F42BC43CAA00F79E3A /* ProfileViewCell.xib in Resources */,
 				FF932DF12BBEA75F00D82DCA /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,10 +450,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFD017F52BC43CAA00F79E3A /* ProfileViewCellController.swift in Sources */,
+				FFD017FF2BC5A50000F79E3A /* Repository.swift in Sources */,
+				FFD017F92BC56FC500F79E3A /* StackViewCell.swift in Sources */,
 				FF932DEE2BBEA75F00D82DCA /* ProfileViewController.swift in Sources */,
 				FFD017EF2BC43AC600F79E3A /* Profile.swift in Sources */,
 				FF932DEA2BBEA75F00D82DCA /* AppDelegate.swift in Sources */,
+				FFD017FD2BC5703D00F79E3A /* TableViewCell.swift in Sources */,
 				FF932DEC2BBEA75F00D82DCA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

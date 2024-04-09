@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Alamofire
-import Kingfisher
 
 class ProfileViewController: UICollectionViewController {
     static let identifier = "ProfileView"
@@ -19,84 +17,11 @@ class ProfileViewController: UICollectionViewController {
     }
 
     func configureCollectionView() {
-                
-        // UICollectionView 초기화 및 설정
-        collectionView = {
-            let view = UICollectionView(frame: .zero, collectionViewLayout: ProfileViewController.getLayout())
-            view.isScrollEnabled = true
-            view.showsHorizontalScrollIndicator = false
-            view.showsVerticalScrollIndicator = true
-            view.scrollIndicatorInsets = UIEdgeInsets(top: -2, left: 0, bottom: 0, right: 4)
-            view.contentInset = .zero
-            view.backgroundColor = .clear
-            view.clipsToBounds = true
-            view.register(ProfileViewCellController.self, forCellWithReuseIdentifier: ProfileViewCellController.cellIdentifier)
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-            
         // 셀 등록, 데이터 소스 및 델리게이트 설정
-        collectionView.register(ProfileViewCellController.self, forCellWithReuseIdentifier: ProfileViewCellController.cellIdentifier)
+        collectionView.register(StackViewCell.self, forCellWithReuseIdentifier: StackViewCell.cellIdentifier)
+        collectionView.register(TableViewCell.self, forCellWithReuseIdentifier: TableViewCell.cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-    }
-        
-    static func getLayout() -> UICollectionViewCompositionalLayout {
-      UICollectionViewCompositionalLayout { (section, env) -> NSCollectionLayoutSection? in
-        switch section {
-        case 0:
-            let itemFractionalWidthFraction = 1.0 / 2.0 // horizontal 2개의 셀
-            let groupFractionalHeightFraction = 1.0 / 5.0 // vertical 5개의 셀
-            let itemInset: CGFloat = 2.5
-          
-            // Item
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(itemFractionalWidthFraction),
-                heightDimension: .fractionalHeight(1)
-            )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-          
-            // Group
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(groupFractionalHeightFraction)
-            )
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 10)
-          
-            // Section
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-            
-            return section
-            
-        default:
-            let itemFractionalWidthFraction = 1.0 // horizontal 1개의 셀
-            let groupFractionalHeightFraction = 1.0 / 10.0 // vertical 10개의 셀
-            let itemInset: CGFloat = 2.5
-          
-            // Item
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(itemFractionalWidthFraction),
-                heightDimension: .fractionalHeight(1)
-            )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-          
-            // Group
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(groupFractionalHeightFraction)
-            )
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-          
-            // Section
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: itemInset, leading: itemInset, bottom: itemInset, trailing: itemInset)
-            
-            return section
-        }
-      }
     }
     
     /// AutoLayout 설정
@@ -110,21 +35,49 @@ class ProfileViewController: UICollectionViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
+    
+    // 2개의 섹션으로 나눔
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     
+    // 1개의 섹션당 1개의 셀
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return 10
+            return 1
     }
         
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileViewCellController.cellIdentifier, for: indexPath) as? ProfileViewCellController else {
-            return UICollectionViewCell()
+        switch indexPath.section {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StackViewCell.cellIdentifier, for: indexPath) as? StackViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.backgroundColor = .red
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TableViewCell.cellIdentifier, for: indexPath) as? TableViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.backgroundColor = .blue
+            return cell
         }
-        cell.backgroundColor = .systemGray
-        return cell
+    }
+    
+    
+}
+
+extension ProfileViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch indexPath.section {
+        case 0:
+            // StackView 섹션의 크기
+            return CGSize(width: collectionView.frame.width, height: 100) // 예시 크기
+        default:
+            // TableView 섹션의 크기
+            print("cnffur")
+            return CGSize(width: collectionView.frame.width, height: 400) // 예시 크기
+        }
     }
 }
 
+extension

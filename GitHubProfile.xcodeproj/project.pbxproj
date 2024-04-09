@@ -19,6 +19,9 @@
 		FF932E012BBEA76000D82DCA /* GitHubProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF932E002BBEA76000D82DCA /* GitHubProfileTests.swift */; };
 		FF932E0B2BBEA76000D82DCA /* GitHubProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF932E0A2BBEA76000D82DCA /* GitHubProfileUITests.swift */; };
 		FF932E0D2BBEA76000D82DCA /* GitHubProfileUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF932E0C2BBEA76000D82DCA /* GitHubProfileUITestsLaunchTests.swift */; };
+		FFD017EF2BC43AC600F79E3A /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD017EE2BC43AC600F79E3A /* Profile.swift */; };
+		FFD017F42BC43CAA00F79E3A /* ProfileViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD017F32BC43CAA00F79E3A /* ProfileViewCell.xib */; };
+		FFD017F52BC43CAA00F79E3A /* ProfileViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD017F22BC43CAA00F79E3A /* ProfileViewCellController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		FF932E062BBEA76000D82DCA /* GitHubProfileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubProfileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF932E0A2BBEA76000D82DCA /* GitHubProfileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProfileUITests.swift; sourceTree = "<group>"; };
 		FF932E0C2BBEA76000D82DCA /* GitHubProfileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProfileUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FFD017EE2BC43AC600F79E3A /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		FFD017F22BC43CAA00F79E3A /* ProfileViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCellController.swift; sourceTree = "<group>"; };
+		FFD017F32BC43CAA00F79E3A /* ProfileViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,12 +145,12 @@
 		FF932DE82BBEA75F00D82DCA /* GitHubProfile */ = {
 			isa = PBXGroup;
 			children = (
-				FF932DE92BBEA75F00D82DCA /* AppDelegate.swift */,
+				FFD017ED2BC43AAD00F79E3A /* Models */,
+				FFD017F02BC43BC900F79E3A /* Views */,
+				FFD017F12BC43BDA00F79E3A /* Controllers */,
 				FF932DEB2BBEA75F00D82DCA /* SceneDelegate.swift */,
-				FF932DED2BBEA75F00D82DCA /* ProfileViewController.swift */,
-				FF932DEF2BBEA75F00D82DCA /* Main.storyboard */,
+				FF932DE92BBEA75F00D82DCA /* AppDelegate.swift */,
 				FF932DF22BBEA76000D82DCA /* Assets.xcassets */,
-				FF932DF42BBEA76000D82DCA /* LaunchScreen.storyboard */,
 				FF932DF72BBEA76000D82DCA /* Info.plist */,
 			);
 			path = GitHubProfile;
@@ -165,6 +171,33 @@
 				FF932E0C2BBEA76000D82DCA /* GitHubProfileUITestsLaunchTests.swift */,
 			);
 			path = GitHubProfileUITests;
+			sourceTree = "<group>";
+		};
+		FFD017ED2BC43AAD00F79E3A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FFD017EE2BC43AC600F79E3A /* Profile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FFD017F02BC43BC900F79E3A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF932DF42BBEA76000D82DCA /* LaunchScreen.storyboard */,
+				FF932DEF2BBEA75F00D82DCA /* Main.storyboard */,
+				FFD017F32BC43CAA00F79E3A /* ProfileViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FFD017F12BC43BDA00F79E3A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FF932DED2BBEA75F00D82DCA /* ProfileViewController.swift */,
+				FFD017F22BC43CAA00F79E3A /* ProfileViewCellController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +311,7 @@
 			files = (
 				FF932DF32BBEA76000D82DCA /* Assets.xcassets in Resources */,
 				FF932DF62BBEA76000D82DCA /* Base in Resources */,
+				FFD017F42BC43CAA00F79E3A /* ProfileViewCell.xib in Resources */,
 				FF932DF12BBEA75F00D82DCA /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,7 +440,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD017F52BC43CAA00F79E3A /* ProfileViewCellController.swift in Sources */,
 				FF932DEE2BBEA75F00D82DCA /* ProfileViewController.swift in Sources */,
+				FFD017EF2BC43AC600F79E3A /* Profile.swift in Sources */,
 				FF932DEA2BBEA75F00D82DCA /* AppDelegate.swift in Sources */,
 				FF932DEC2BBEA75F00D82DCA /* SceneDelegate.swift in Sources */,
 			);

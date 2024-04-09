@@ -6,24 +6,31 @@
 //
 
 import Foundation
-import Alamofire
 
 struct Repository: Decodable {
+    let id: Int
+    let node_id: String?
     let name: String
+    let description: String?
     let language: String?
-}
-
-// GitHub API로부터 repository 정보를 가져오는 함수
-func fetchRepositories(for user: String) {
-    let url = "https://api.github.com/users/\(user)/repos"
-    AF.request(url).responseDecodable(of: [Repository].self) { response in
-        if let value = response.value {
-            print(value)
-        }else {
-            print("Error: ")
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case node_id
+        case name
+        case description
+        case language
+    }
+    
+    public func getName() -> String {
+        return name
+    }
+    
+    public func getLanguage() -> String {
+        if let language = language {
+            return language
         }
+        return "-"
     }
 }
-
-
 

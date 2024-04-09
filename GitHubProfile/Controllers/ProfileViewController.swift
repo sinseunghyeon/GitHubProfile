@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UICollectionViewController {
     static let identifier = "ProfileView"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
@@ -80,4 +80,3 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension

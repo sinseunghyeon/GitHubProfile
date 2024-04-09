@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 struct Profile: Decodable {
     let login: String
@@ -27,16 +26,6 @@ struct Profile: Decodable {
         case following
       }
     
-    public init(login: String, id: Int, avatar_url: String, name: String? = nil, region: String? = nil, followers: Int? = nil, following: Int? = nil) {
-        self.login = login
-        self.id = id
-        self.avatar_url = avatar_url
-        self.name = name
-        self.region = region
-        self.followers = followers
-        self.following = following
-    }
-    
     public func getLogin() -> String{
         return login
     }
@@ -49,42 +38,29 @@ struct Profile: Decodable {
         if let name = name {
             return name
         }
-        return "Error"
+        return "-"
     }
     
     public func getRegion() -> String {
         if let region = region {
             return region
         }
-        return "Error"
+        return "-"
     }
     
     public func getFollowers() -> String {
         if let followers = followers {
             return String(followers)
         }
-        return "Error"
+        return "-"
     }
     
     public func getFollowing() -> String {
         if let following = following {
             return String(following)
         }
-        return "Error"
+        return "-"
     }
 }
 
-func fetchGitHubUser(username: String) -> Profile {
-    let url = "https://api.github.com/users/\(username)"
-    var profile = Profile(login: "none", id: 0, avatar_url: "none")
-    
-    AF.request(url).responseDecodable(of: Profile.self) { response in
-        if let user = response.value {
-            print("GitHub User: \(user)")
-            profile = Profile(login: user.login, id: user.id, avatar_url: user.avatar_url, name: user.name, region: user.region, followers: user.followers!, following: user.following!)
-        }else {
-            print("Error: ")
-        }
-    }
-    return profile
-}
+

@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import Alamofire
 
 class StackViewCell: UICollectionViewCell {
     static let cellIdentifier = "StackViewCell"
-    var profile = fetchGitHubUser(username: "sinseunghyeon")
     // StackView를 추가하고 구성하는 코드
     let stackView = UIStackView()
     let trailingStackView = UIStackView()
@@ -25,7 +25,8 @@ class StackViewCell: UICollectionViewCell {
         setupStackView()
         setupTrailingStackView()
         setupImageView()
-        setupLabel()
+        fetchGitHubUser(username: "sinseunghyeon")
+//        setupLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -76,12 +77,30 @@ class StackViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)])
     }
     
-    private func setupLabel() {
-        idLabel.text = profile.getLogin()
-        nameLabel.text = profile.getName()
-        regionLabel.text = profile.getRegion()
-        followersLabel.text = profile.getFollowers()
-        followingLabel.text = profile.getFollowing()
+    func reloadLabels() {
+        idLabel.reloadInputViews()
+        nameLabel.reloadInputViews()
+        regionLabel.reloadInputViews()
+        followersLabel.reloadInputViews()
+        followingLabel.reloadInputViews()
+    }
+    
+    func fetchGitHubUser(username: String) {
+        let url = "https://api.github.com/users/\(username)"
+        
+        AF.request(url).validate().responseDecodable(of: Profile.self) { response in
+            if let value = response.value {
+                print("GitHub User: \(value)")
+                self.idLabel.text = value.getLogin()
+                self.nameLabel.text = value.getName()
+                self.regionLabel.text = value.getRegion()
+                self.followersLabel.text = value.getFollowers()
+                self.followingLabel.text = value.getFollowing()
+                
+            }else {
+                print("Error: ")
+            }
+        }
     }
     
     override func awakeFromNib() {

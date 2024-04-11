@@ -10,16 +10,16 @@ import Foundation
 struct Profile: Decodable {
     let login: String
     let id: Int
-    let avatar_url: String
+    let avatarUrl: String
     let name: String?
     let region: String?
     let followers: Int?
     let following: Int?
     
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: String, CodingKey {
         case login
         case id
-        case avatar_url
+        case avatarUrl = "avatar_url"
         case name
         case region
         case followers

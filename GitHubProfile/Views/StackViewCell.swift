@@ -21,6 +21,11 @@ class StackViewCell: UICollectionViewCell {
     let followersLabel = UILabel()
     let followingLabel = UILabel()
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStackView()
@@ -38,35 +43,30 @@ class StackViewCell: UICollectionViewCell {
         // StackView 설정
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually // 아이템을 균등하게 채움
-        stackView.spacing = 50 // 아이템 간의 간격 설정
+        stackView.spacing = 30 // 아이템 간의 간격 설정
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(trailingStackView)
         addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
+        
     }
     
     private func setupTrailingStackView() {
         // StackView 설정
         trailingStackView.axis = .vertical
         trailingStackView.distribution = .fillEqually // 아이템을 균등하게 채움
+        
         trailingStackView.addArrangedSubview(idLabel)
         trailingStackView.addArrangedSubview(nameLabel)
         trailingStackView.addArrangedSubview(regionLabel)
         trailingStackView.addArrangedSubview(followersLabel)
         trailingStackView.addArrangedSubview(followingLabel)
-        trailingStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            trailingStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            trailingStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            trailingStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 200),
-            trailingStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
     }
     
     private func setupImageView(username: String) {
@@ -75,12 +75,6 @@ class StackViewCell: UICollectionViewCell {
             imageView.kf.setImage(with: url)
         }
         imageView.image = UIImage(named: "none") // 이미지 이름 설정
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: self.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -250),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)])
     }
     
     func setupLabel() {
@@ -108,9 +102,5 @@ class StackViewCell: UICollectionViewCell {
             }
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 }
+

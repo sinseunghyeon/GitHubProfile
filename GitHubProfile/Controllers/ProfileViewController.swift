@@ -71,10 +71,10 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         switch indexPath.section {
         case 0:
             // StackView 섹션의 크기
-            return CGSize(width: collectionView.frame.width, height: 100)
+            return CGSize(width: collectionView.frame.width, height: 250)
         default:
             // TableView 섹션의 크기
-            return CGSize(width: collectionView.frame.width, height: 400)
+            return CGSize(width: collectionView.frame.width, height: 450)
         }
     }
 }

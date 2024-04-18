@@ -10,6 +10,7 @@ import Alamofire
 
 class NetworkManager {
     let url = "https://api.github.com/users/"
+    var isLoading = false
     
     // GitHub API로부터 User 정보를 가져오는 함수
     func fetchGitHubUser(username: String, completion: @escaping (Result<Profile, Error>) -> Void) {

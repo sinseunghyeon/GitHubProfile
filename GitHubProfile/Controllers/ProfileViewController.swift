@@ -49,8 +49,18 @@ class ProfileViewController: UICollectionViewController {
         // 셀 등록, 데이터 소스 및 델리게이트 설정
         collectionView.register(UINib(nibName: "StackViewCell", bundle: nil), forCellWithReuseIdentifier: StackViewCell.cellIdentifier)
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.cellIdentifier)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+    
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        setupNetWork() // 네트워크 설정을 다시 호출하여 데이터 새로고침
+            sender.endRefreshing() // 새로고침 제어를 종료합니다.
     }
     
     /// AutoLayout 설정
@@ -62,6 +72,27 @@ class ProfileViewController: UICollectionViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    // LoadMore 함수
+    func loadMoreData() {
+        if !networkManager.isLoading {
+            networkManager.isLoading = true
+            self.page += 1
+            
+            networkManager.fetchRepositories(username: "apple", page: self.page) { [weak self] result in
+                switch result {
+                case .success(let moreRepositories):
+                    self?.repositories.append(contentsOf: moreRepositories)
+                    self?.collectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+                if self?.repositories.isEmpty != true {
+                    self?.networkManager.isLoading = false
+                }
+            }
+        }
     }
     
     // 2개의 섹션으로 나눔
@@ -107,7 +138,15 @@ class ProfileViewController: UICollectionViewController {
         }
     }
     
-    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+
+        if offsetY > contentHeight - height {
+            loadMoreData()
+        }
+    }
 }
 
 extension ProfileViewController: UICollectionViewDelegateFlowLayout {

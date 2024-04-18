@@ -27,7 +27,6 @@ class StackViewCell: UICollectionViewCell {
         setupStackView()
         setupTrailingStackView()
         setupImageView(username: "sinseunghyeon")
-        setupLabel()
     }
     
     private func setupStackView() {
@@ -71,12 +70,12 @@ class StackViewCell: UICollectionViewCell {
         imageView.image = UIImage(named: "none") // 이미지 이름 설정
     }
     
-    func setupLabel() {
-        idLabel.text = "ID : "
-        nameLabel.text = "Name : "
-        regionLabel.text = "Region : "
-        followersLabel.text = "Followers : "
-        followingLabel.text = "Following : "
+    func setupLabel(id: String, name: String, region: String, followers: String, following: String) {
+        idLabel.text = "ID : " + id
+        nameLabel.text = "Name : " + name
+        regionLabel.text = "Region : " + region
+        followersLabel.text = "Followers : " + followers
+        followingLabel.text = "Following : " + following
     }
     
     

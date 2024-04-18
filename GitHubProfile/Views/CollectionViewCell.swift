@@ -10,8 +10,9 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     static let cellIdentifier = "CollectionViewCell"
     
-    let uiLabel = UILabel()
-    var dataRepository: [Repository] = []
+    let stackView = UIStackView()
+    let uiNameLabel = UILabel()
+    let uiLanguageLabel = UILabel()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,14 +20,21 @@ class CollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpCollectionViewCell() {
-        contentView.addSubview(uiLabel)
-        uiLabel.backgroundColor = .cyan
-        uiLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(stackView)
+        
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.addArrangedSubview(uiNameLabel)
+        stackView.addArrangedSubview(uiLanguageLabel)
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            uiLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            uiLabel.heightAnchor.constraint(equalToConstant: 50),
-            uiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            uiLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: 50),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ])
         
     }
+    
 }

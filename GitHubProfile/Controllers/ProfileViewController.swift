@@ -8,6 +8,11 @@
 import SnapKit
 import UIKit
 
+enum State {
+    case `default`
+    case search
+}
+
 class ProfileViewController: UICollectionViewController {
     static let identifier = "ProfileView"
     let networkManager = NetworkManager()
@@ -15,12 +20,17 @@ class ProfileViewController: UICollectionViewController {
     
     var profile: Profile?
     var repositories: [Repository] = []
+    var resultData: [Repository] = []
     var page = 1
+    
+    let searchBar = UISearchBar()
+    var state: State = .default
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNetWork()
         configureCollectionView()
+        setupSearchBar()
         setupCollectionViewConstraints()
     }
 
@@ -74,6 +84,12 @@ class ProfileViewController: UICollectionViewController {
         }
     }
     
+    func setupSearchBar() {
+        navigationItem.titleView = searchBar
+        searchBar.placeholder = "검색어를 입력하세요"
+        searchBar.delegate = self
+    }
+    
     // LoadMore 함수
     func loadMoreData() {
         if !networkManager.isLoading {
@@ -108,7 +124,12 @@ class ProfileViewController: UICollectionViewController {
                 return 1
             default:
                 // 저장소 섹션은 저장소 배열의 길이만큼 셀이 필요
+            switch self.state {
+            case .default:
                 return repositories.count
+            case .search:
+                return resultData.count
+            }
             }
     }
         
@@ -130,9 +151,14 @@ class ProfileViewController: UICollectionViewController {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.cellIdentifier, for: indexPath) as? CollectionViewCell else {
                 return UICollectionViewCell()
             }
-            
-            cell.uiNameLabel.text = repositories[indexPath.row].getName()
-            cell.uiLanguageLabel.text = repositories[indexPath.row].getLanguage()
+            switch self.state {
+            case .default:
+                cell.uiNameLabel.text = repositories[indexPath.row].getName()
+                cell.uiLanguageLabel.text = repositories[indexPath.row].getLanguage()
+            case .search:
+                cell.uiNameLabel.text = resultData[indexPath.row].getName()
+                cell.uiLanguageLabel.text = resultData[indexPath.row].getLanguage()
+            }
             
             return cell
         }
@@ -162,3 +188,27 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension ProfileViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.resultData.removeAll()
+        
+        for i in 0..<repositories.count {
+            if repositories[i].getName().lowercased().contains(searchText.lowercased()) {
+                self.resultData.append(repositories[i])
+            }
+        }
+        if searchText.isEmpty {
+            self.state = .default
+        }
+        collectionView.reloadData()
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.state = .search
+        return true
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.state = .default
+    }
+}

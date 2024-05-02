@@ -5,6 +5,7 @@
 //  Created by t2023-m0056 on 4/12/24.
 //
 
+import SnapKit
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
@@ -27,14 +28,12 @@ class CollectionViewCell: UICollectionViewCell {
         stackView.addArrangedSubview(uiNameLabel)
         stackView.addArrangedSubview(uiLanguageLabel)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 50),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
-        ])
-        
+        stackView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
+        }
     }
     
 }

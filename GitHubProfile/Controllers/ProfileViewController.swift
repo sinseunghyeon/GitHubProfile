@@ -5,6 +5,7 @@
 //  Created by t2023-m0056 on 4/4/24.
 //
 
+import SnapKit
 import UIKit
 
 class ProfileViewController: UICollectionViewController {
@@ -65,13 +66,12 @@ class ProfileViewController: UICollectionViewController {
     
     /// AutoLayout 설정
     func setupCollectionViewConstraints() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        collectionView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
     }
     
     // LoadMore 함수

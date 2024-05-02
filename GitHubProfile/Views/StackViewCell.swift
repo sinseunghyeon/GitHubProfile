@@ -5,8 +5,9 @@
 //  Created by t2023-m0056 on 4/9/24.
 //
 
-import UIKit
 import Alamofire
+import SnapKit
+import UIKit
 import Kingfisher
 
 class StackViewCell: UICollectionViewCell {
@@ -38,14 +39,12 @@ class StackViewCell: UICollectionViewCell {
         stackView.addArrangedSubview(trailingStackView)
         addSubview(stackView)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        ])
-        
+        stackView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
     }
     
     private func setupTrailingStackView() {

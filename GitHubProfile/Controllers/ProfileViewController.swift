@@ -33,7 +33,7 @@ class ProfileViewController: UICollectionViewController {
         setupSearchBar()
         setupCollectionViewConstraints()
     }
-
+    
     func setupNetWork() {
         networkManager.fetchGitHubUser(username: self.username) { [weak self] result in
             switch result {
@@ -70,8 +70,9 @@ class ProfileViewController: UICollectionViewController {
     }
     
     @objc func refreshData(_ sender: UIRefreshControl) {
+        self.page = 1
         setupNetWork() // 네트워크 설정을 다시 호출하여 데이터 새로고침
-            sender.endRefreshing() // 새로고침 제어를 종료합니다.
+        sender.endRefreshing() // 새로고침 제어를 종료합니다.
     }
     
     /// AutoLayout 설정
@@ -119,20 +120,20 @@ class ProfileViewController: UICollectionViewController {
     // 1개의 섹션당 1개의 셀
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-            case 0:
-                // 프로필 섹션은 하나의 셀만 필요
-                return 1
-            default:
-                // 저장소 섹션은 저장소 배열의 길이만큼 셀이 필요
+        case 0:
+            // 프로필 섹션은 하나의 셀만 필요
+            return 1
+        default:
+            // 저장소 섹션은 저장소 배열의 길이만큼 셀이 필요
             switch self.state {
             case .default:
                 return repositories.count
             case .search:
                 return resultData.count
             }
-            }
+        }
     }
-        
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
@@ -168,7 +169,7 @@ class ProfileViewController: UICollectionViewController {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
-
+        
         if offsetY > contentHeight - height {
             loadMoreData()
         }
@@ -207,7 +208,7 @@ extension ProfileViewController: UISearchBarDelegate {
         self.state = .search
         return true
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.state = .default
     }
